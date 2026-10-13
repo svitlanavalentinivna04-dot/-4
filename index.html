@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інтерактивний тренажер: Ділове спілкування та ОДС</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            background: var(--light);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .step-pill {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #bdc3c7;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .step-pill.active {
+            background: var(--secondary);
+        }
+
+        .step-pill.completed {
+            background: var(--success);
+        }
+
+        .task-card {
+            display: none;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        .task-card.active {
+            display: block;
+        }
+
+        .task-title {
+            color: var(--secondary);
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .situation-box {
+            background-color: #eef7fc;
+            border-left: 4px solid var(--secondary);
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-check {
+            background-color: var(--warning);
+            margin-top: 10px;
+        }
+
+        .btn-check:hover {
+            background-color: #d35400;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            background-color: #f4f6f6;
+            border: 1px solid #d5dbdb;
+        }
+
+        .feedback-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Тренажер: Оволодіння навичками ділового спілкування</h1>
+    <div class="subtitle">Інтерактивна практика за інструкційно-технологічною карткою</div>
+
+    <!-- Індикатор прогресу -->
+    <div class="progress-bar">
+        <span class="step-pill active" id="pill-1">Завдання 1</span>
+        <span class="step-pill" id="pill-2">Завдання 2</span>
+        <span class="step-pill" id="pill-3">Завдання 3</span>
+        <span class="step-pill" id="pill-4">Завдання 4</span>
+        <span class="step-pill" id="pill-5">Завдання 5</span>
+    </div>
+
+    <!-- Завдання 1 -->
+    <div class="task-card active" id="task-1">
+        <h3 class="task-title">Завдання 1: Комплексне редагування службової записки (Мовні норми ОДС)</h3>
+        <div class="situation-box">
+            <strong>Ситуація:</strong> «Я рахую, що треба терміново прийняти міри по покращенню роботи нашого відділу. В останній час виникає багато спірних питань з підрядниками. Пропоную заключити новий договір на слідуючий місяць і підвести підсумки на повістці дня».
+        </div>
+        
+        <label>1. Укажіть виявлені мовні помилки (через кому або списком):</label>
+        <textarea id="ans-1-1" placeholder="Наприклад: рахую -> вважаю, прийняти міри -> ..."></textarea>
+
+        <label>2. Запишіть відредагований варіант речення у строгій відповідності до норм ОДС:</label>
+        <textarea id="ans-1-2" placeholder="Введіть повний відредагований текст..."></textarea>
+
+        <button class="btn btn-check" onclick="checkTask(1)">Перевірити себе / Породити еталон</button>
+
+        <div class="feedback-box" id="feedback-1">
+            <div class="feedback-title">Еталонний розв'язок для самоперевірки:</div>
+            <p><strong>Виявлені помилки:</strong> рахую (вважаю), прийняти міри (вживати заходів), по покращенню (щодо/для поліпшення), в останній час (останнім часом), заключити договір (укласти договір), на слідуючий місяць (на наступний місяць), підвести підсумки (підбити підсумки), на повістці дня (у порядку денному).</p>
+            <p><strong>Відредагований текст:</strong> «Вважаю за необхідне терміново вжити заходів щодо поліпшення роботи нашого відділу. Останнім часом виникає багато спірних питань із підрядниками. Пропоную укласти новий договір на наступний місяць і підбити підсумки у порядку денному».</p>
+        </div>
+    </div>
+
+    <!-- Завдання 2 -->
+    <div class="task-card" id="task-2">
+        <h3 class="task-title">Завдання 2: Оформлення протоколу коротких зборів (Писемна форма)</h3>
+        <div class="situation-box">
+            <strong>Ситуація:</strong> Під час оперативної наради співробітники обговорили питання проведення навчального тренінгу для працівників та ухвалили рішення доручити секретарю підготувати програму до 20 жовтня 2026 року.
+        </div>
+
+        <label>Складіть фрагмент тексту розділу «СЛУХАЛИ — УХВАЛИЛИ» для протоколу засідання з дотриманням ДСТУ 4163:2020 та ОДС:</label>
+        <textarea id="ans-2" style="min-height: 120px;" placeholder="СЛУХАЛИ: ...&#10;УХВАЛИЛИ: ..."></textarea>
+
+        <button class="btn btn-check" onclick="checkTask(2)">Перевірити себе / Породити еталон</button>
+
+        <div class="feedback-box" id="feedback-2">
+            <div class="feedback-title">Еталонний розв'язок для самоперевірки:</div>
+            <p><strong>СЛУХАЛИ:</strong><br>
+            [Прізвище, ініціали доповідача] — про проведення навчального тренінгу для працівників компанії.</p>
+            <p><strong>УХВАЛИЛИ:</strong><br>
+            1. Доручити секретарю розробити та подати програму навчального тренінгу для працівників.<br>
+            Термін виконання — до 20 жовтня 2026 року.</p>
+        </div>
+    </div>
+
+    <!-- Завдання 3 -->
+    <div class="task-card" id="task-3">
+        <h3 class="task-title">Завдання 3: Робота з комунікативними бар'єрами та активним слуханням</h3>
+        <div class="situation-box">
+            <strong>Ситуація:</strong> Представник партнерської організації каже: «Ви вже вдруге затримуєте надання звітних документів! Ми не можемо планувати бюджет і через це втрачаємо час!».
+        </div>
+
+        <label>1. Оберіть вид комунікативного бар'єру:</label>
+        <select id="ans-3-1">
+            <option value="">-- Оберіть варіант --</option>
+            <option value="1">Фонетичний бар'єр</option>
+            <option value="2">Емоційний / Психологічний бар'єр</option>
+            <option value="3">Семантичний бар'єр</option>
+        </select>
+
+        <label>2. Складіть відповідь за допомогою техніки «Активне слухання» (підтвердження емоцій + перефразування + перехід до конструктиву):</label>
+        <textarea id="ans-3-2" placeholder="Введіть варіант конструктивної відповіді..."></textarea>
+
+        <button class="btn btn-check" onclick="checkTask(3)">Перевірити себе / Породити еталон</button>
+
+        <div class="feedback-box" id="feedback-3">
+            <div class="feedback-title">Еталонний розв'язок для самоперевірки:</div>
+            <p><strong>Вид бар'єру:</strong> Емоційний / Психологічний бар'єр (виклики напруження та роздратування у партнерів).</p>
+            <p><strong>Приклад відповіді:</strong> «Розумію вашу стурбованість щодо затримки документів та її впливу на процес планування бюджету. Справді, вчасність є критично важливою. Пропоную зараз уточнити статус готовності звіту та узгодити точний час його передачі сьогодні до кінця дня».</p>
+        </div>
+    </div>
+
+    <!-- Завдання 4 -->
+    <div class="task-card" id="task-4">
+        <h3 class="task-title">Завдання 4: Етикет ділового електронного листування (Email-етикет)</h3>
+        <div class="situation-box">
+            <strong>Ситуація:</strong> Працівник надіслав листа з темою «Документ», у тілі написав «Дивіться прикріплений файл», а файл назвав Doc111_final_v2.pdf.
+        </div>
+
+        <label>1. Перелічіть помилки в оформленні листа:</label>
+        <textarea id="ans-4-1" placeholder="Неінформативна тема, ..."></textarea>
+
+        <label>2. Напишіть коректний варіант теми, звернення та супровідного тексту листа:</label>
+        <textarea id="ans-4-2" style="min-height: 120px;" placeholder="Тема: ...&#10;Текст: ..."></textarea>
+
+        <button class="btn btn-check" onclick="checkTask(4)">Перевірити себе / Породити еталон</button>
+
+        <div class="feedback-box" id="feedback-4">
+            <div class="feedback-title">Еталонний розв'язок для самоперевірки:</div>
+            <p><strong>Помилки:</strong> Неінформативна тема листа; відсутність вітання, звернення у кличному відмінку та підпису; некоректна та неконкретна назва прикріпленого файлу.</p>
+            <p><strong>Коректний варіант:</strong><br>
+            <strong>Тема:</strong> Проєкт договору про надання послуг № 12/08<br>
+            <strong>Текст:</strong><br>
+            Шановний пане Ковальчук!<br>
+            Надсилаємо Вам на узгодження проєкт договору про надання послуг № 12/08.<br>
+            Просимо ознайомитися з документом у додатку та надати зауваження до 20 жовтня 2026 року.<br>
+            З повагою, [Посада, Ім'я та Прізвище]</p>
+        </div>
+    </div>
+
+    <!-- Завдання 5 -->
+    <div class="task-card" id="task-5">
+        <h3 class="task-title">Завдання 5: Офіційне звернення та субординація у складній ситуації</h3>
+        <div class="situation-box">
+            <strong>Ситуація:</strong> Співробітник підпорядкованого підрозділу виявив помилку в розрахунках, зроблених його безпосереднім керівником, яка може призвести до фінансових втрат.
+        </div>
+
+        <label>Складіть варіант усної репліки співробітника до керівника під час особистої бесіди (з дотриманням субординації та ділового етикету):</label>
+        <textarea id="ans-5" style="min-height: 100px;" placeholder="Звернення..."></textarea>
+
+        <button class="btn btn-check" onclick="checkTask(5)">Перевірити себе / Породити еталон</button>
+
+        <div class="feedback-box" id="feedback-5">
+            <div class="feedback-title">Еталонний розв'язок (з картки):</div>
+            <p>«Анатолію Миколайовичу, дозвольте уточнити декілька цифр у розрахунках до проєкту. Під час повторної перевірки підсумкової таблиці я помітив відхилення в розрахунку кошторису. Пропоную разом переглянути ці показники, щоб уточнити дані до відправки звіту керівництву».</p>
+        </div>
+    </div>
+
+    <!-- Навігація -->
+    <div class="nav-buttons">
+        <button class="btn" id="btn-prev" onclick="changeStep(-1)" disabled>← Назад</button>
+        <button class="btn" id="btn-next" onclick="changeStep(1)">Далі →</button>
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    function changeStep(delta) {
+        // Ховаємо поточну картку
+        document.getElementById(`task-${currentStep}`).classList.remove('active');
+        document.getElementById(`pill-${currentStep}`).classList.remove('active');
+
+        if (document.getElementById(`ans-${currentStep}`)?.value || document.getElementById(`ans-${currentStep}-2`)?.value) {
+            document.getElementById(`pill-${currentStep}`).classList.add('completed');
+        }
+
+        currentStep += delta;
+
+        // Показуємо нову картку
+        document.getElementById(`task-${currentStep}`).classList.add('active');
+        document.getElementById(`pill-${currentStep}`).classList.add('active');
+
+        // Оновлюємо стан кнопок
+        document.getElementById('btn-prev').disabled = (currentStep === 1);
+        
+        if (currentStep === totalSteps) {
+            document.getElementById('btn-next').innerText = 'Завершити';
+        } else {
+            document.getElementById('btn-next').innerText = 'Далі →';
+        }
+    }
+
+    function checkTask(stepNumber) {
+        const feedbackBox = document.getElementById(`feedback-${stepNumber}`);
+        feedbackBox.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
